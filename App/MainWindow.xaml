@@ -8,10 +8,12 @@
     xmlns:windowex="using:WinUIEx"
     MinWidth="500"
     MinHeight="500"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    Closed="WindowEx_Closed">
     <Window.SystemBackdrop>
         <MicaBackdrop/>
     </Window.SystemBackdrop>
+    
     <Grid>
         
     </Grid>
