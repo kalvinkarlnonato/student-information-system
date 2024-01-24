@@ -6,18 +6,15 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:windowex="using:WinUIEx"
-    MinWidth="500"
-    MinHeight="500"
     mc:Ignorable="d"
-    Closed="WindowEx_Closed">
+    MinWidth="500"
+    MinHeight="500">
     <Window.SystemBackdrop>
         <MicaBackdrop/>
     </Window.SystemBackdrop>
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition />
             <RowDefinition />
         </Grid.RowDefinitions>
         <Grid x:Name="AppTitleBar"
@@ -35,5 +32,23 @@
                 Margin="28,2,0,0"
                 Text="Student Information System"/>
         </Grid>
+        <NavigationView x:Name="AppNavigation"
+                        PaneDisplayMode="Top"
+                        IsBackButtonVisible="Visible"
+                        IsBackEnabled="{x:Bind ViewModel.IsBackEnabled, Mode=OneWay}"
+                        SelectionChanged="AppNavigation_SelectionChanged"
+                        Loaded="AppNavigation_Loaded"
+                        Grid.Row="1">
+            <NavigationView.MenuItems>
+                <NavigationViewItem Icon="Home" Content="Dashboard" Tag="HomePage" />
+                <NavigationViewItem Icon="People" Content="Students" Tag="StudentPage" />
+                <NavigationViewItem Icon="Bookmarks" Content="Subjects" Tag="SubjectPage" />
+                <NavigationViewItem Icon="PostUpdate" Content="Enlist" Tag="EnlistPage" />
+            </NavigationView.MenuItems>
+            <Frame x:Name="AppContentFrame"/>
+            <!--Content-->
+
+            <!--Content-->
+        </NavigationView>
     </Grid>
 </windowex:WindowEx>
