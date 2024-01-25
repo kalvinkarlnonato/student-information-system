@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="App.Views.Dialogs.AddStudentView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:App.Services"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewmodel="using:App.ViewModels.Dialogs"
+    xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
+    mc:Ignorable="d" Loaded="Page_Loaded"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.DataContext>
+        <viewmodel:AddStudentViewModel/>
+    </Page.DataContext>
+    <Page.Resources>
+        <local:TimeConverter x:Key="TimeConverter"/>
+    </Page.Resources>
+    
+    <Grid Padding="10,10,0,7">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="167"/>
+            <ColumnDefinition Width="167"/>
+            <ColumnDefinition Width="167"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Center">
+            <TextBlock Text="Add Student" FontSize="30"/>
+        </StackPanel>
+        <StackPanel Grid.Row="0" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,20,0">
+            <Button Content="Add More"/>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Grid.ColumnSpan="3" Orientation="Horizontal">
+            <TextBlock Text="Details" FontSize="20"/>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Margin="0,5,5,5">
+            <TextBlock Text="Student ID:"/>
+            <TextBox x:Name="studID" Text="{Binding Student.SID, Mode=TwoWay}" PlaceholderText="e.g. 20-99121" PreviewKeyDown="studentIdTextbox_PreviewKeyDown"/>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Grid.Column="2" Margin="0,5,5,5" Width="149" HorizontalAlignment="Left">
+            <TextBlock Text="Gender:"/>
+            <ComboBox ItemsSource="{Binding Gender}" SelectedValue="{Binding Person.Gender, Mode=TwoWay}" HorizontalAlignment="Stretch" PlaceholderText="Sex"/>
+        </StackPanel>
+        <StackPanel Grid.Row="3" Grid.Column="0"  Margin="0,5,5,5">
+            <TextBlock Text="First Name:"/>
+            <TextBox Text="{Binding Person.FirstName, Mode=TwoWay}" PlaceholderText="e.g. Juan" CharacterCasing="Upper"/>
+        </StackPanel>
+        <StackPanel Grid.Row="3" Grid.Column="1"  Margin="0,5,5,5">
+            <TextBlock Text="Middle Name:"/>
+            <TextBox Text="{Binding Person.MiddleName, Mode=TwoWay}" PlaceholderText="e.g. Antonio" CharacterCasing="Upper"/>
+        </StackPanel>
+        <StackPanel Grid.Row="3" Grid.Column="2"  Margin="0,5,5,5" Width="149" HorizontalAlignment="Left">
+            <TextBlock Text="Last Name"/>
+            <TextBox Text="{Binding Person.LastName, Mode=TwoWay}" PlaceholderText="e.g. Luna" CharacterCasing="Upper"/>
+        </StackPanel>
+        <StackPanel Grid.Row="4" Grid.Column="0"  Margin="0,5,5,5">
+            <TextBlock Text="Ext"/>
+            <TextBox Text="{Binding Person.Ex, Mode=TwoWay}" PlaceholderText="e.g. Jr. Sr." CharacterCasing="Upper"/>
+        </StackPanel>
+        <StackPanel Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2"  Margin="0,5,5,5" Width="315" HorizontalAlignment="Left">
+            <TextBlock Text="Birthday"/>
+            <!--<CalendarDatePicker HorizontalAlignment="Stretch" SelectedDate="{Binding Birthday, Mode=TwoWay}/>-->
+            <DatePicker SelectedDate="{Binding Birthday, Mode=TwoWay, Converter={StaticResource TimeConverter}}"/>
+            <!--<mycontrols:CustomDatePicker SelectedDate="{Binding Birthday, Mode=TwoWay}"/>-->
+        </StackPanel>
+        <StackPanel Grid.Row="5" Grid.ColumnSpan="3" Margin="0,5,5,5" Width="482" HorizontalAlignment="Left">
+            <TextBlock Text="Address"/>
+            <TextBox Text="{Binding Person.Address, Mode=TwoWay}" PlaceholderText="e.g. Zone 1 Iraga Road " CharacterCasing="Upper"/>
+        </StackPanel>
+        <StackPanel Grid.Row="6" Grid.Column="0" Margin="0,5,5,5">
+            <TextBlock Text="City"/>
+            <TextBox Text="{Binding Person.City, Mode=TwoWay}" PlaceholderText="e.g. Solana" CharacterCasing="Upper"/>
+        </StackPanel>
+        <StackPanel Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" Margin="0,5,5,5" Width="315" HorizontalAlignment="Left">
+            <TextBlock Text="Province"/>
+            <TextBox Text="{Binding Person.Province, Mode=TwoWay}" PlaceholderText="e.g. Cagayan Valley" CharacterCasing="Upper"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="7" Grid.ColumnSpan="3" Orientation="Horizontal">
+            <TextBlock Text="Course" FontSize="20"/>
+        </StackPanel>
+        <StackPanel Grid.Row="8" Grid.Column="0" Margin="0,5,5,5">
+            <TextBlock Text="Program"/>
+            <ComboBox ItemsSource="{Binding Programs}" SelectedValue="{Binding Student.Program, Mode=TwoWay}" Margin="0,0,0,10" HorizontalAlignment="Stretch" PlaceholderText="Programs"/>
+        </StackPanel>
+        <StackPanel Grid.Row="8" Grid.Column="1" Margin="0,5,5,5">
+            <TextBlock Text="Major"/>
+            <TextBox Text="{Binding Student.Major, Mode=TwoWay}" PlaceholderText="e.g. Programming" CharacterCasing="Upper"/>
+        </StackPanel>
+        <StackPanel Grid.Row="8" Grid.Column="2" Margin="0,5,5,5" Width="149" HorizontalAlignment="Left">
+            <TextBlock Text="Status"/>
+            <!--<TextBox Text="{Binding Student.Status, Mode=TwoWay}"  PlaceholderText="e.g. Regular" CharacterCasing="Upper"/>-->
+            <ComboBox ItemsSource="{Binding Status}" SelectedValue="{Binding Student.Status, Mode=TwoWay}" SelectedItem="{Binding Student.Status}" HorizontalAlignment="Stretch" PlaceholderText="Status"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="9" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,10,20,0">
+            <Button Click="Close_Click">Close</Button>
+        </StackPanel>
+        <StackPanel Grid.Row="9" Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,20,0">
+            <Button Click="Save_Click" Command="{Binding SaveCommand}">Save</Button>
+        </StackPanel>
+    </Grid>
+</Page>
