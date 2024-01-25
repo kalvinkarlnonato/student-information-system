@@ -47,15 +47,17 @@ public partial class App : Application
                 //Library Services
                 services.AddSingleton<IDatabaseService<PersonModel>, PersonDataService>();
                 services.AddSingleton<IDatabaseService<StudentModel>, StudentDataService>();
+                services.AddSingleton<IDatabaseService<SubjectModel>, SubjectDataService>();
 
                 //ViewModels
+                services.AddSingleton<EnlistViewModel>();
                 services.AddTransient<MainViewModel>();
                 services.AddTransient<HomeViewModel>();
                 services.AddTransient<SettingViewModel>();
-                services.AddTransient<EnlistViewModel>();
                 services.AddTransient<SubjectViewModel>();
                 services.AddTransient<StudentViewModel>();
                 services.AddTransient<AddStudentViewModel>();
+                services.AddTransient<ShowEnlistViewModel>();
                 
                 //Views
                 services.AddTransient<MainWindow>();
@@ -65,6 +67,7 @@ public partial class App : Application
                 services.AddTransient<SubjectPage>();
                 services.AddTransient<StudentPage>();
                 services.AddTransient<AddStudentView>();
+                services.AddTransient<ShowEnlistPage>();
             }).Build();
     }
 
