@@ -17,6 +17,26 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition />
         </Grid.RowDefinitions>
+        <!--TEMPORARY DESIGN. HAHAHAHAHA-->
+        <Button Content="ADD"
+                Margin="30,2,0,0"
+                Width="100"
+                VerticalAlignment="Top"
+                Click="Add_Click"/>
+        <Button Content="EDIT"
+                Margin="145,2,0,0"
+                Width="100"
+                VerticalAlignment="Top"/>
+        <Button Content="DELETE"
+                Margin="260,2,0,0"
+                Width="100"
+                VerticalAlignment="Top"/>
+        <TextBox PlaceholderText="SEARCH"
+                     Margin="30,0,0,0"
+                     Width="330"
+                     Height="20"
+                     HorizontalAlignment="Left"
+                     VerticalAlignment="Bottom"/>
         <TextBlock Grid.Row="0" Text="SUBJECT PAGE" FontSize="50" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <controls:DataGrid Grid.Row="1"
                            IsReadOnly="True"

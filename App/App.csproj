@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
+    <TargetFramework>net7.0-windows10.0.19041.0</TargetFramework>
     <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
     <RootNamespace>App</RootNamespace>
 	<ApplicationIcon>Assets/AppIcon.ico</ApplicationIcon>
@@ -16,6 +16,8 @@
 	<UseWinUI>true</UseWinUI>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Views\Dialogs\AddStudentView.xaml" />
+    <None Remove="Views\Dialogs\AddSubjectView.xaml" />
     <None Remove="Views\EnlistPage.xaml" />
     <None Remove="Views\HomePage.xaml" />
     <None Remove="Views\SettingPage.xaml" />
@@ -51,6 +53,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Library\Library.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Page Update="Views\SettingPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -76,6 +82,18 @@
 
   <ItemGroup>
     <Page Update="Views\HomePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Views\Dialogs\AddSubjectView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Views\Dialogs\AddStudentView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
