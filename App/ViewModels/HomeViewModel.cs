@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using System;
 using System.Windows.Input;
 using Windows.System;
 
@@ -8,7 +9,7 @@ namespace App.ViewModels
     public partial class HomeViewModel : ObservableObject
     {
         [ObservableProperty]
-        [NotifyCanExecuteChangedFor(nameof(ClickCommand))]
+        //[NotifyCanExecuteChangedFor(nameof(ClickCommand))]
         private string? title;
 
         [ObservableProperty]
@@ -25,19 +26,19 @@ namespace App.ViewModels
             Description = "Welcome to student management system. Please rate my work on my page and i am open for suggestions.";
         }
 
-        [RelayCommand(IncludeCancelCommand = true)]
-        private async Task Click(CancellationToken token)
-        {
-            try
-            {
-                await Task.Delay(5_000, token);
-                Title = "Thanks for sharing.";
-            }
-            catch (OperationCanceledException)
-            {
-                Title = "You canceled your suggestion.";
-            }
+        //[RelayCommand(IncludeCancelCommand = true)]
+        //private async Task Click(CancellationToken token)
+        //{
+        //    try
+        //    {
+        //        await Task.Delay(5_000, token);
+        //        Title = "Thanks for sharing.";
+        //    }
+        //    catch (OperationCanceledException)
+        //    {
+        //        Title = "You canceled your suggestion.";
+        //    }
 
-        }
+        //}
     }
 }

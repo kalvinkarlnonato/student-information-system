@@ -6,32 +6,92 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
-    xmlns:vewmodel="using:App.ViewModels"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-    <Page.DataContext>
-        <vewmodel:EnlistViewModel/>
-    </Page.DataContext>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition />
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
         </Grid.RowDefinitions>
+        <Button Content="ENLIST"
+            Margin="30,2,0,0"
+            Width="100"
+            VerticalAlignment="Top"
+            Click="Enlist_Click"/>
+        <Button Content="IRREGULAR"
+            Margin="145,2,0,0"
+            Width="100"
+            VerticalAlignment="Top"/>
+        <Button Content="DROPPING"
+            Margin="260,2,0,0"
+            Width="100"
+            VerticalAlignment="Top"/>
+        <TextBox PlaceholderText="SEARCH"
+            Margin="30,0,0,0"
+            Width="330"
+            Height="20"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Bottom"/>
         <TextBlock Text="ENLIST PAGE" FontSize="50" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <controls:DataGrid Grid.Row="1"
-                           IsReadOnly="True"
-                           Margin="30"
-                           BorderBrush="Black"
-                           AutoGenerateColumns="False"
-                           GridLinesVisibility="Horizontal"
-                           SelectionMode="Extended"
-                           ItemsSource="{Binding Students}">
+                        IsReadOnly="True"
+                        Margin="30"
+                        BorderBrush="Black"
+                        AutoGenerateColumns="False"
+                        GridLinesVisibility="Horizontal"
+                        SelectionMode="Extended"
+                        LoadingRow="DataGrid_LoadingRow"
+                        HeadersVisibility="All"
+                        ItemsSource="{Binding Students}"
+                        SelectedItem="{Binding SelectedStudent, Mode=TwoWay}">
             <controls:DataGrid.Resources>
                 <SolidColorBrush x:Key="DataGridColumnHeaderBackgroundColor" Color="Transparent" />
             </controls:DataGrid.Resources>
             <controls:DataGrid.Columns>
-                <controls:DataGridTextColumn Binding="{Binding ID}" Header="ID" />
-                <controls:DataGridTextColumn Binding="{Binding Name}" Header="Name" />
+                <controls:DataGridTextColumn Binding="{Binding SID}" Header="ID" />
+                <controls:DataGridTextColumn Binding="{Binding Person.FirstName}" Header="First Name" />
+                <controls:DataGridTextColumn Binding="{Binding Person.MiddleName}" Header="Middle Name" />
+                <controls:DataGridTextColumn Binding="{Binding Person.LastName}" Header="Last Name" />
+                <controls:DataGridTextColumn Binding="{Binding Person.Ex}" Header="Ex" />
+                <controls:DataGridTextColumn Binding="{Binding College}" Header="College" />
+                <controls:DataGridTextColumn Binding="{Binding Course}" Header="Course" />
+                <controls:DataGridTextColumn Binding="{Binding Major}" Header="Major" />
+                <controls:DataGridTextColumn Binding="{Binding YearLevel}" Header="Year" />
+                <controls:DataGridTextColumn Binding="{Binding Date}" Header="Entry Date" />
+                <controls:DataGridTextColumn Binding="{Binding Status}" Header="Status" />
+                <controls:DataGridTextColumn Binding="{Binding Person.Birthday}" Header="Birthday" />
+                <controls:DataGridTextColumn Binding="{Binding Person.Sex}" Header="Sex" />
+                <controls:DataGridTextColumn Binding="{Binding Person.Address}" Header="Address" />
+                <controls:DataGridTextColumn Binding="{Binding Person.City}" Header="City" />
+                <controls:DataGridTextColumn Binding="{Binding Person.Province}" Header="Province" />
+                <controls:DataGridTextColumn Binding="{Binding Scheme}" Header="Scheme" />
+            </controls:DataGrid.Columns>
+        </controls:DataGrid>
+        <TextBox PlaceholderText="SEARCH"
+         Grid.Row="2"
+             Margin="30,0,0,0"
+             Width="330"
+             Height="20"
+             HorizontalAlignment="Left"
+             VerticalAlignment="Bottom"/>
+        <TextBlock Grid.Row="2" Text="ENROLLED" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <controls:DataGrid Grid.Row="3"
+                   IsReadOnly="True"
+                   Margin="30"
+                   BorderBrush="Black"
+                   AutoGenerateColumns="False"
+                   GridLinesVisibility="Horizontal"
+                   SelectionMode="Extended"
+                   ItemsSource="{Binding Students}">
+            <controls:DataGrid.Resources>
+                <SolidColorBrush x:Key="DataGridColumnHeaderBackgroundColor" Color="Transparent" />
+            </controls:DataGrid.Resources>
+            <controls:DataGrid.Columns>
+                <controls:DataGridTextColumn Binding="{Binding SID}" Header="ID" />
+                <controls:DataGridTextColumn Binding="{Binding Person.FirstName}" Header="Name" />
             </controls:DataGrid.Columns>
         </controls:DataGrid>
     </Grid>

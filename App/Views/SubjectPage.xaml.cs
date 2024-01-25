@@ -1,6 +1,7 @@
 using App.ViewModels;
 using App.Views.Dialogs;
 using Microsoft.UI.Xaml.Controls;
+using System;
 
 namespace App.Views
 {
@@ -16,17 +17,17 @@ namespace App.Views
 
         private async void Add_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
         {
-            var yourPage = new AddSubjectView();
-            var yourDialog = new ContentDialog()
+            var myPage = new AddSubjectView();
+            var myDialog = new ContentDialog()
             {
                 XamlRoot = XamlRoot,
-                Content = yourPage
+                Content = myPage
             };
-            yourPage.contentDialog = yourDialog;
-            await yourDialog.ShowAsync();
+            myPage.contentDialog = myDialog;
+            await myDialog.ShowAsync();
 
             //Get the return result of SearchPage
-            var yourPageResult = yourPage.StudID;
+            var myPageResult = myPage.StudID;
         }
     }
 }
