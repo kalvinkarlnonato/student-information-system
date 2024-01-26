@@ -48,7 +48,7 @@ public sealed partial class HomePage : Page
     private void Signin_Click(object sender, RoutedEventArgs e)
     {
         Button button = (Button)sender;
-        Library.User.FullName.ProccessBy = FullNameTextbox.Text;
+        Library.Configs.User.ProccessBy = FullNameTextbox.Text;
         button.IsEnabled = false;
         FullNameTextbox.IsReadOnly = true;
     }
