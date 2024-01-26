@@ -13,30 +13,47 @@ public partial class EnlistViewModel : ObservableObject
     private readonly IDatabaseService<StudentModel> StudentDatabaseService;
     private readonly IDatabaseService<PersonModel> PersonDatabaseService;
     private readonly IDatabaseService<SubjectModel> SubjectDatabaseService;
+    private readonly IDatabaseService<StudentFeeModel> StudentFeeDatabaseService;
+
 
     public ObservableCollection<StudentModel> Students { get; set; }
 
     public ObservableCollection<SubjectModel> Subjects { get; set; }
 
-    public ObservableCollection<SubjectModel> StudentSubjects { get; set; }
+    public ObservableCollection<StudentModel> Enrolled { get; set; }
 
     [ObservableProperty]
     private StudentModel? selectedStudent;
 
-    public EnlistViewModel(IDatabaseService<StudentModel> studentDatabaseService)
+    public EnlistViewModel(IDatabaseService<StudentModel> studentDatabaseService, IDatabaseService<StudentFeeModel> studentFeeDatabaseService)
     {
         StudentDatabaseService = studentDatabaseService;
+        StudentFeeDatabaseService = studentFeeDatabaseService;
         PersonDatabaseService = App.GetService<IDatabaseService<PersonModel>>();
         SubjectDatabaseService = App.GetService<IDatabaseService<SubjectModel>>();
         Students = new ObservableCollection<StudentModel>();
         Subjects = new ObservableCollection<SubjectModel>();
-        StudentSubjects = new ObservableCollection<SubjectModel>();
-
+        Enrolled = new ObservableCollection<StudentModel>();
         LoadStudents();
         LoadSubjects();
+        LoadEnrolled();
         //LoadEnrolled();
     }
 
+    public async void LoadEnrolled()
+    {
+        Enrolled.Clear();
+        var ens = await StudentFeeDatabaseService.Get();
+        List<StudentFeeModel> sf = new List<StudentFeeModel>();
+        foreach (var en in ens) sf.Add(en);
+        var enrolledStuds = Students.Where(y=> sf.Select(x=>x.StudentID).Contains(y.ID)).ToList();
+        foreach (var en in enrolledStuds)
+        {
+            en.StudentFee = sf.Where(x=>x.StudentID==en.ID).FirstOrDefault()??new();
+            Enrolled.Add(en);
+        }
+
+    }
 
     public async void LoadSubjects()
     {

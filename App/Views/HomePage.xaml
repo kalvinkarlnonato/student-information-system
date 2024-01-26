@@ -5,17 +5,15 @@
     xmlns:local="using:App.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:viewmodel="using:App.ViewModels"
     mc:Ignorable="d"
     Loaded="Page_Loaded"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-    <Page.DataContext>
-        <viewmodel:HomeViewModel/>
-    </Page.DataContext>
+
     <Grid>
         <StackPanel  HorizontalAlignment="Center" VerticalAlignment="Center">
             <TextBlock Text="{Binding Title, Mode=OneWay}" FontSize="50"/>
-            <TextBox Text="{Binding Description, Mode=OneWay}" />
+            <TextBox x:Name="FullNameTextbox" PlaceholderText="Write your full name here." CharacterCasing="Upper" TextAlignment="Center"/>
+            <Button HorizontalAlignment="Center" Content="Signin" Click="Signin_Click"/>
             <Button HorizontalAlignment="Center" Content="Click Me!" Command="{Binding ClickCommand}"/>
             <Button HorizontalAlignment="Center" Content="Cancel Me!" Command="{Binding ClickCancelCommand}"/>
             <Button HorizontalAlignment="Center" Content="Dialog Me!" Click="Message_Click"/>

@@ -49,7 +49,9 @@
                 </ListView.ItemTemplate>
             </ListView>
         </StackPanel>
-        <Button Grid.Row="3" Margin="10" HorizontalAlignment="Right" Content="PRINT" Command="{Binding ShowCommand}"/>
-        <Button Grid.Row="3" Margin="10" HorizontalAlignment="Left" Content="CANCEL" Click="Cancel_Click"/>
+        <Button Grid.Row="3" Width="80" Margin="10" HorizontalAlignment="Right" Content="PRINT" Command="{Binding PrintCommand}" Click="Cancel_Click" />
+        <Button Grid.Row="3" Width="80" Margin="10,10,94,10" HorizontalAlignment="Right" Content="PDF" Command="{Binding ToPdfCommand}" Click="Cancel_Click" />
+        <Button Grid.Row="3" Width="80" Margin="10,10,178,10" HorizontalAlignment="Right" Content="SAVE" Command="{Binding SaveOnlyCommand}" Click="Cancel_Click" />
+        <Button Grid.Row="3" Width="80" Margin="10" HorizontalAlignment="Left" Content="CANCEL" Click="Cancel_Click"/>
     </Grid>
 </Page>
