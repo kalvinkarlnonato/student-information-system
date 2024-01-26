@@ -14,12 +14,6 @@ public sealed partial class SettingPage : Page
         ViewModel = App.GetService<SettingViewModel>();
     }
 
-    private void SemCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-        ComboBox cmb = (ComboBox)sender;
-        SemTextblock.Text = ViewModel.Semesters[cmb.SelectedIndex].Sem;
-    }
-
     //protected override void OnNavigatedTo(NavigationEventArgs e)
     //{
     //    EdgeTransitionLocation? Edge;

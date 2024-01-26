@@ -7,10 +7,12 @@ namespace App.Views;
 
 public sealed partial class EnlistPage : Page
 {
+    private EnlistViewModel ViewModel;
     public EnlistPage()
     {
         this.InitializeComponent();
-        this.DataContext = App.GetService<EnlistViewModel>();
+        ViewModel = App.GetService<EnlistViewModel>();
+        this.DataContext = ViewModel;
     }
 
     private void DataGrid_LoadingRow(object sender, CommunityToolkit.WinUI.UI.Controls.DataGridRowEventArgs e)
@@ -20,6 +22,17 @@ public sealed partial class EnlistPage : Page
 
     private async void Enlist_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
     {
+        if(AllStudentLists.SelectedItems.Count == 0) return;
+        var exist = ViewModel.Enrolled.Any(x => x.ID == ViewModel.SelectedStudent.ID);
+        if(exist)
+        {
+            ContentDialog dialog = new ContentDialog() { Title = "Oooops!", Content = "This student already exist.\nDo you want to continue?", PrimaryButtonText ="Yes", SecondaryButtonText = "Cancel", XamlRoot = XamlRoot };
+            ContentDialogResult x = await dialog.ShowAsync();
+            if(x == ContentDialogResult.Secondary)
+            {
+                return;
+            }
+        }
         var myPage = new ShowEnlistPage();
         var myDialog = new ContentDialog()
         {
@@ -28,5 +41,20 @@ public sealed partial class EnlistPage : Page
         };
         myPage.contentDialog = myDialog;
         await myDialog.ShowAsync();
+        ViewModel.LoadEnrolled();
+    }
+
+    private void Search_KeyUp(object sender, Microsoft.UI.Xaml.Input.KeyRoutedEventArgs e)
+    {
+        TextBox searchBox = (TextBox)sender;
+        var filtered = ViewModel.Students.Where(std => (std.SID.Contains(searchBox.Text) || std.Person.FirstName.Contains(searchBox.Text) || std.Person.LastName.Contains(searchBox.Text)));
+        AllStudentLists.ItemsSource = filtered;
+    }
+
+    private void SearchEnrolled_KeyUp(object sender, Microsoft.UI.Xaml.Input.KeyRoutedEventArgs e)
+    {
+        TextBox searchBox = (TextBox)sender;
+        var filtered = ViewModel.Enrolled.Where(std => (std.SID.Contains(searchBox.Text) || std.Person.FirstName.Contains(searchBox.Text) || std.Person.LastName.Contains(searchBox.Text)));
+        AllEnrolledLists.ItemsSource = filtered;
     }
 }

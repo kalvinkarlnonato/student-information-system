@@ -15,6 +15,9 @@ namespace App.ViewModels
         [ObservableProperty]
         private string? description;
 
+        [ObservableProperty]
+        private string? userFullName;
+
         public HomeViewModel()
         {
             string greet;
@@ -26,19 +29,19 @@ namespace App.ViewModels
             Description = "Welcome to student management system. Please rate my work on my page and i am open for suggestions.";
         }
 
-        //[RelayCommand(IncludeCancelCommand = true)]
-        //private async Task Click(CancellationToken token)
-        //{
-        //    try
-        //    {
-        //        await Task.Delay(5_000, token);
-        //        Title = "Thanks for sharing.";
-        //    }
-        //    catch (OperationCanceledException)
-        //    {
-        //        Title = "You canceled your suggestion.";
-        //    }
+        [RelayCommand(IncludeCancelCommand = true)]
+        private async Task Click(CancellationToken token)
+        {
+            try
+            {
+                await Task.Delay(5_000, token);
+                Title = "Thanks for sharing.";
+            }
+            catch (OperationCanceledException)
+            {
+                Title = "You canceled your suggestion.";
+            }
 
-        //}
+        }
     }
 }

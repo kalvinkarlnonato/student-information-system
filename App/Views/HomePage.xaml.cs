@@ -12,6 +12,7 @@ public sealed partial class HomePage : Page
     { 
         this.InitializeComponent();
         ViewModel = App.GetService<HomeViewModel>();
+        this.DataContext = ViewModel;
     }
 
     private async void MessageBox(String title, String content, String closeText)
@@ -38,9 +39,17 @@ public sealed partial class HomePage : Page
     {
         if (!IsInternetAvailable())
         {
-            ContentDialog dialog = new ContentDialog() { Title = "Oooops!", Content = "There is a problem, You don't have internet connection", CloseButtonText = "OK", XamlRoot = XamlRoot };
+            ContentDialog dialog = new ContentDialog() { Title = "Oooops!", Content = "You don't have internet connection.", CloseButtonText = "OK", XamlRoot = XamlRoot };
             await dialog.ShowAsync();
             //App._MainWindow!.Close();
         }
+    }
+
+    private void Signin_Click(object sender, RoutedEventArgs e)
+    {
+        Button button = (Button)sender;
+        Library.User.FullName.ProccessBy = FullNameTextbox.Text;
+        button.IsEnabled = false;
+        FullNameTextbox.IsReadOnly = true;
     }
 }

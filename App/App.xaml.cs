@@ -33,7 +33,7 @@ public partial class App : Application
     public App()
     {
         this.InitializeComponent();
-
+        License.LicenseKey = "IRONSUITE.DUMMY.BRAVO.GAME.GMAIL.COM.13354-509A285276-HHWWA5BPSASNMV-TNWOSYSQDUHK-62EXFNZUCU2P-GNYO6VGZBBOV-JYXEEXS2K5CU-MCCZHYSLVFIO-PI6Y2L-TZBVV5RDYVKLUA-DEPLOYMENT.TRIAL-QDPVDA.TRIAL.EXPIRES.23.FEB.2024";
 
         Hosting = Host.CreateDefaultBuilder().
             UseContentRoot(AppContext.BaseDirectory).
@@ -48,9 +48,13 @@ public partial class App : Application
                 services.AddSingleton<IDatabaseService<PersonModel>, PersonDataService>();
                 services.AddSingleton<IDatabaseService<StudentModel>, StudentDataService>();
                 services.AddSingleton<IDatabaseService<SubjectModel>, SubjectDataService>();
+                services.AddSingleton<IDatabaseService<SettingModel>, SettingDataService>();
+                services.AddSingleton<IDatabaseService<StudentFeeModel>, StudentFeeDataService>();
+                services.AddSingleton<IDatabaseService<StudentSubjectModel>, StudentSubjectDataService>();
 
                 //ViewModels
                 services.AddSingleton<EnlistViewModel>();
+                services.AddTransient<HomeViewModel>();
                 services.AddTransient<MainViewModel>();
                 services.AddTransient<HomeViewModel>();
                 services.AddTransient<SettingViewModel>();
