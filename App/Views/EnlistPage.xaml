@@ -91,6 +91,8 @@
                    AutoGenerateColumns="False"
                    GridLinesVisibility="Horizontal"
                    SelectionMode="Extended"
+                    LoadingRow="DataGrid_LoadingRow"
+                    HeadersVisibility="All"
                    ItemsSource="{Binding Enrolled}">
             <controls:DataGrid.Resources>
                 <SolidColorBrush x:Key="DataGridColumnHeaderBackgroundColor" Color="Transparent" />

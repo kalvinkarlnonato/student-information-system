@@ -28,7 +28,7 @@ public partial class ShowEnlistViewModel : ObservableObject
     private StudentModel student;
 
     private ChromePdfRenderer renderer;
-	private string processBy = Library.User.FullName.ProccessBy;
+	private string processBy = Library.Configs.User.ProccessBy;
     private FeesModel fees = new FeesModel();
 
 	private SettingModel Settings { get; set; }
