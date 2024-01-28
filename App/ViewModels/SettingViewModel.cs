@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Library;
+using Library.Helpers;
 using Library.Services;
 using System.Collections.ObjectModel;
 
@@ -45,18 +46,18 @@ public partial class SettingViewModel : ObservableObject
             return;
         }
         ConnectionState = "OK";
-        Configs.ConnectionString.host = Host;
-        Configs.ConnectionString.username = Username;
-        Configs.ConnectionString.password = Password;
-        Configs.ConnectionString.database = Database;
+        ConnectionStringHelpers.host = Host;
+        ConnectionStringHelpers.username = Username;
+        ConnectionStringHelpers.password = Password;
+        ConnectionStringHelpers.database = Database;
 
     }
     public SettingViewModel()
     {
         ConnectionState = "LISTENING TO THE SERVER ...";
-        Host = Configs.ConnectionString.host;
-        Username = Configs.ConnectionString.username;
-        Password = Configs.ConnectionString.password;
-        Database = Configs.ConnectionString.database;
+        Host = ConnectionStringHelpers.host;
+        Username = ConnectionStringHelpers.username;
+        Password = ConnectionStringHelpers.password;
+        Database = ConnectionStringHelpers.database;
     }
 }

@@ -23,13 +23,13 @@
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Text="SETTINGS PAGE" FontSize="50" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <StackPanel Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="300">
-            <ComboBox ItemsSource="{Binding Semesters}" HorizontalAlignment="Stretch">
+            <!--<ComboBox ItemsSource="{Binding Semesters}" HorizontalAlignment="Stretch">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Sem}"/>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
-            </ComboBox>
+            </ComboBox>-->
             <TextBlock HorizontalAlignment="Center" Margin="10" Text="{Binding ConnectionState}" />
             <TextBox Text="{Binding Host, Mode=TwoWay}" PlaceholderText="Please do not change this!" />
             <TextBox Text="{Binding Username, Mode=TwoWay}" PlaceholderText="Please do not change this!" />

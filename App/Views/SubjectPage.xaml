@@ -6,12 +6,9 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
-    xmlns:viewmodel="using:App.ViewModels"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-    <Page.DataContext>
-        <viewmodel:SubjectViewModel/>
-    </Page.DataContext>  
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -22,7 +19,7 @@
                 Margin="30,2,0,0"
                 Width="100"
                 VerticalAlignment="Top"
-                Click="Add_Click"/>
+                Command="{Binding ShowDialogCommand}"/>
         <Button Content="EDIT"
                 Margin="145,2,0,0"
                 Width="100"

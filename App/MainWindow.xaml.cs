@@ -2,14 +2,13 @@ using App.ViewModels;
 using App.Views;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Navigation;
 using WinUIEx;
 
 namespace App;
 
 public sealed partial class MainWindow : WindowEx
 {
-    private MainViewModel ViewModel { get; }
+    public MainViewModel ViewModel { get; private set; }
 
     public MainWindow()
     {

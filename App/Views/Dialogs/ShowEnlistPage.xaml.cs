@@ -8,10 +8,13 @@ public sealed partial class ShowEnlistPage : Page
 {
     public ContentDialog? contentDialog { get; set; }
 
+    public ShowEnlistViewModel ViewModel { get; }
+
     public ShowEnlistPage()
     {
         this.InitializeComponent();
-        this.DataContext = App.GetService<ShowEnlistViewModel>();
+        ViewModel = App.GetService<ShowEnlistViewModel>();
+        this.DataContext = ViewModel;
     }
 
     private void Cancel_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)

@@ -10,7 +10,11 @@ namespace App.Views
         public StudentPage()
         {
             this.InitializeComponent();
+            ViewModel = App.GetService<StudentViewModel>();
+            this.DataContext = ViewModel;
         }
+
+        public object ViewModel { get; }
 
         private async void Add_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
         {

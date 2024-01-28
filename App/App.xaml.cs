@@ -1,5 +1,7 @@
 ﻿using App.Contracts;
+using App.Contracts.Dialogs;
 using App.Services;
+using App.Services.Dialogs;
 using App.ViewModels;
 using App.ViewModels.Dialogs;
 using App.Views;
@@ -33,7 +35,6 @@ public partial class App : Application
     public App()
     {
         this.InitializeComponent();
-        License.LicenseKey = "IRONSUITE.DUMMY.BRAVO.GAME.GMAIL.COM.13354-509A285276-HHWWA5BPSASNMV-TNWOSYSQDUHK-62EXFNZUCU2P-GNYO6VGZBBOV-JYXEEXS2K5CU-MCCZHYSLVFIO-PI6Y2L-TZBVV5RDYVKLUA-DEPLOYMENT.TRIAL-QDPVDA.TRIAL.EXPIRES.23.FEB.2024";
 
         Hosting = Host.CreateDefaultBuilder().
             UseContentRoot(AppContext.BaseDirectory).
@@ -41,6 +42,7 @@ public partial class App : Application
             {
                 //Services
                 services.AddSingleton<INavigationService, NavigationService>();
+                services.AddSingleton<IAddSampleService, AddSampleService>();
                 services.AddSingleton<TrappingServices>();
                 services.AddSingleton<NotificationService>();
 
@@ -71,6 +73,7 @@ public partial class App : Application
                 services.AddTransient<SubjectPage>();
                 services.AddTransient<StudentPage>();
                 services.AddTransient<AddStudentView>();
+                services.AddTransient<AddSubjectView>();
                 services.AddTransient<ShowEnlistPage>();
             }).Build();
     }

@@ -10,14 +10,14 @@ public partial class StudentViewModel : ObservableObject
     private readonly IDatabaseService<StudentModel> StudentDatabaseService;
     private readonly IDatabaseService<PersonModel> PersonDatabaseService;
 
-    public ObservableCollection<StudentModel> Students { get; } = new();
+    public ObservableCollection<StudentModel> Students { get; }
 
-    public object? result { get; set; }
-
-    public StudentViewModel()
+    public StudentViewModel(IDatabaseService<StudentModel> studentDatabaseService,
+                            IDatabaseService<PersonModel> personDatabaseService)
     {
-        StudentDatabaseService = App.GetService<IDatabaseService<StudentModel>>();
-        PersonDatabaseService = App.GetService<IDatabaseService<PersonModel>>();
+        StudentDatabaseService = studentDatabaseService;
+        PersonDatabaseService = personDatabaseService;
+        Students = new ObservableCollection<StudentModel>();
         LoadStudents();
     }
 

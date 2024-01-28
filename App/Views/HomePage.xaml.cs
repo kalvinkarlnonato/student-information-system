@@ -1,4 +1,5 @@
 using App.ViewModels;
+using Library.Helpers;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System.Runtime.InteropServices;
@@ -48,7 +49,7 @@ public sealed partial class HomePage : Page
     private void Signin_Click(object sender, RoutedEventArgs e)
     {
         Button button = (Button)sender;
-        Library.Configs.User.ProccessBy = FullNameTextbox.Text;
+        UserHelpers.ProccessBy = FullNameTextbox.Text;
         button.IsEnabled = false;
         FullNameTextbox.IsReadOnly = true;
     }

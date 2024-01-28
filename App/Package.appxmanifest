@@ -9,14 +9,14 @@
 
   <Identity
     Name="18dbf6c0-835e-44ed-9468-28dbed4f1b76"
-    Publisher="CN=Vin"
+    Publisher="CN=Nonato"
     Version="1.0.0.0" />
 
   <mp:PhoneIdentity PhoneProductId="18dbf6c0-835e-44ed-9468-28dbed4f1b76" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>App</DisplayName>
-    <PublisherDisplayName>Vin</PublisherDisplayName>
+    <PublisherDisplayName>Nonato</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
 
@@ -34,12 +34,18 @@
       Executable="$targetnametoken$.exe"
       EntryPoint="$targetentrypoint$">
       <uap:VisualElements
-        DisplayName="App"
-        Description="App"
+        DisplayName="Solana SIS"
+        Description="An educational institution&apos;s software program for managing and storing student data is called a Student Information System (SIS). It serves as a consolidated repository for relevant data about academic and administrative procedures that administrators, instructors, and students can access."
         BackgroundColor="transparent"
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png">
-        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" />
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png"  ShortName="Solana SIS" Square71x71Logo="Assets\SmallTile.png" Square310x310Logo="Assets\LargeTile.png">
+          <uap:ShowNameOnTiles>
+            <uap:ShowOn Tile="square150x150Logo"/>
+            <uap:ShowOn Tile="wide310x150Logo"/>
+            <uap:ShowOn Tile="square310x310Logo"/>
+          </uap:ShowNameOnTiles>
+        </uap:DefaultTile >
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
       </uap:VisualElements>
     </Application>

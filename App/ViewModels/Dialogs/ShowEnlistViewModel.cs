@@ -10,6 +10,7 @@ using Windows.UI.Popups;
 using ColorCode.Compilation.Languages;
 using System.Text;
 using Library.Services;
+using Library.Helpers;
 
 namespace App.ViewModels.Dialogs;
 
@@ -28,7 +29,7 @@ public partial class ShowEnlistViewModel : ObservableObject
     private StudentModel student;
 
     private ChromePdfRenderer renderer;
-	private string processBy = Library.Configs.User.ProccessBy;
+	private string processBy = UserHelpers.ProccessBy;
     private FeesModel fees = new FeesModel();
 
 	private SettingModel Settings { get; set; }
@@ -83,11 +84,11 @@ public partial class ShowEnlistViewModel : ObservableObject
     [RelayCommand]
     private void Print()
     {
-        SetupDoc().Print();
+        SetupDoc();
 		SaveOnly();
     }
 
-    [RelayCommand]
+	[RelayCommand]
     private async void SaveOnly()
     {
 		StudentFeeModel FeeForSubject = await StudentFeeDatabaseService.Create(new StudentFeeModel()
@@ -121,13 +122,15 @@ public partial class ShowEnlistViewModel : ObservableObject
     }
     
 	[RelayCommand]
-    private void ToPdf()
+    private async Task ToPdf()
     {
-        SaveFile("IronPDF HTML string.pdf", "application/pdf", SetupDoc().Stream);
+		string str = await SetupDoc();
+		var doc = await renderer.RenderHtmlAsPdfAsync(str);
+        SaveFile("IronPDF HTML string.pdf", "application/pdf", doc.Stream);
         SaveOnly();
     }
-
-    private PdfDocument SetupDoc()
+    
+    private async Task<String> SetupDoc()
     {
         renderer = new ChromePdfRenderer();
         renderer.RenderingOptions.PaperSize = IronPdf.Rendering.PdfPaperSize.Custom;
@@ -385,7 +388,9 @@ public partial class ShowEnlistViewModel : ObservableObject
 					<br/><br/><br/>
 		            <strong><span style='font-family: 'Cambria Math',serif;'>" + Settings.Signatory + @"</span></strong><br/>
 		            <span style='font-size: 11.0pt; line-height: 107%; font-family: 'Aptos',sans-serif;'>" + Settings.Position + @"</span>");
-        return renderer.RenderHtmlAsPdf(myHtml.ToString());
+
+		await Task.CompletedTask;
+		return myHtml.ToString();
     }
 
     private async void SaveFile(string filename, string contentType, MemoryStream stream)

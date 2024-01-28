@@ -11,6 +11,7 @@
 
     <Grid>
         <StackPanel  HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Image Source="/Assets/CSU.gif" Height="200" HorizontalAlignment="Center"/>
             <TextBlock Text="{Binding Title, Mode=OneWay}" FontSize="50"/>
             <TextBox x:Name="FullNameTextbox" PlaceholderText="Write your full name here." CharacterCasing="Upper" TextAlignment="Center"/>
             <Button HorizontalAlignment="Center" Content="Signin" Click="Signin_Click"/>

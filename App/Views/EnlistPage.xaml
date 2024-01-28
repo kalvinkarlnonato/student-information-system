@@ -120,5 +120,6 @@
                 <controls:DataGridTextColumn Binding="{Binding StudentFee.ProcessedBy}" Header="Processed By" />
             </controls:DataGrid.Columns>
         </controls:DataGrid>
+        <Frame />
     </Grid>
 </Page>

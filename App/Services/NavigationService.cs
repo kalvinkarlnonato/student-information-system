@@ -1,4 +1,5 @@
 ﻿using App.Contracts;
+using Library.Helpers;
 
 namespace App.Services;
 
@@ -13,7 +14,11 @@ public class NavigationService : INavigationService
 
     private static async Task InitializeAsync()
     {
-        //TODO: Make initialize something here soon. like etc.
+        License.LicenseKey = "IRONSUITE.DUMMY.BRAVO.GAME.GMAIL.COM.13354-509A285276-HHWWA5BPSASNMV-TNWOSYSQDUHK-62EXFNZUCU2P-GNYO6VGZBBOV-JYXEEXS2K5CU-MCCZHYSLVFIO-PI6Y2L-TZBVV5RDYVKLUA-DEPLOYMENT.TRIAL-QDPVDA.TRIAL.EXPIRES.23.FEB.2024";
+        ConnectionStringHelpers.host = "localhost";
+        ConnectionStringHelpers.username = "root";
+        ConnectionStringHelpers.password = "Dikoalam";
+        ConnectionStringHelpers.database = "csusolana";
         await Task.CompletedTask;
     }
 
