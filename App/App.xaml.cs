@@ -43,6 +43,7 @@ public partial class App : Application
                 //Services
                 services.AddSingleton<INavigationService, NavigationService>();
                 services.AddSingleton<IAddSampleService, AddSampleService>();
+                services.AddSingleton<IPrintingService, PrintingService>();
                 services.AddSingleton<TrappingServices>();
                 services.AddSingleton<NotificationService>();
 
@@ -54,19 +55,23 @@ public partial class App : Application
                 services.AddSingleton<IDatabaseService<StudentFeeModel>, StudentFeeDataService>();
                 services.AddSingleton<IDatabaseService<StudentSubjectModel>, StudentSubjectDataService>();
 
-                //ViewModels
+                //Singletons
+                services.AddSingleton<SettingViewModel>();
                 services.AddSingleton<EnlistViewModel>();
+                services.AddSingleton<MainViewModel>();
+                services.AddSingleton<MainWindow>();
+
+                services.AddTransient<ShowEnlistViewModel>();
+                services.AddTransient<ShowEnlistPage>();
+
+                //ViewModels
                 services.AddTransient<HomeViewModel>();
-                services.AddTransient<MainViewModel>();
                 services.AddTransient<HomeViewModel>();
-                services.AddTransient<SettingViewModel>();
                 services.AddTransient<SubjectViewModel>();
                 services.AddTransient<StudentViewModel>();
                 services.AddTransient<AddStudentViewModel>();
-                services.AddTransient<ShowEnlistViewModel>();
                 
                 //Views
-                services.AddTransient<MainWindow>();
                 services.AddTransient<HomePage>();
                 services.AddTransient<SettingPage>();
                 services.AddTransient<EnlistPage>();
@@ -74,7 +79,6 @@ public partial class App : Application
                 services.AddTransient<StudentPage>();
                 services.AddTransient<AddStudentView>();
                 services.AddTransient<AddSubjectView>();
-                services.AddTransient<ShowEnlistPage>();
             }).Build();
     }
 

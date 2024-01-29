@@ -14,6 +14,12 @@ public sealed partial class HomePage : Page
         this.InitializeComponent();
         ViewModel = App.GetService<HomeViewModel>();
         this.DataContext = ViewModel;
+        if(!string.IsNullOrEmpty(UserHelpers.ProccessBy))
+        {
+            FullNameTextbox.Text = UserHelpers.ProccessBy;
+            FullNameTextbox.IsReadOnly = true;
+            SignInButton.IsEnabled = false;
+        }
     }
 
     private async void MessageBox(String title, String content, String closeText)
@@ -35,17 +41,6 @@ public sealed partial class HomePage : Page
         int description;
         return InternetGetConnectedState(out description, 0);
     }
-
-    private async void Page_Loaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
-    {
-        if (!IsInternetAvailable())
-        {
-            ContentDialog dialog = new ContentDialog() { Title = "Oooops!", Content = "You don't have internet connection.", CloseButtonText = "OK", XamlRoot = XamlRoot };
-            await dialog.ShowAsync();
-            //App._MainWindow!.Close();
-        }
-    }
-
     private void Signin_Click(object sender, RoutedEventArgs e)
     {
         Button button = (Button)sender;

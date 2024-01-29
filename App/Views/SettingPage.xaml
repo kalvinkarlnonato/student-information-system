@@ -31,11 +31,9 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>-->
             <TextBlock HorizontalAlignment="Center" Margin="10" Text="{Binding ConnectionState}" />
-            <TextBox Text="{Binding Host, Mode=TwoWay}" PlaceholderText="Please do not change this!" />
-            <TextBox Text="{Binding Username, Mode=TwoWay}" PlaceholderText="Please do not change this!" />
-            <TextBox Text="{Binding Password, Mode=TwoWay}" PlaceholderText="Please do not change this!" />
-            <TextBox Text="{Binding Database, Mode=TwoWay}" PlaceholderText="Please do not change this!" />
-            <Button Content="SET" HorizontalAlignment="Stretch" Margin="0,10,0,0" Command="{Binding SetDatabaseCommand}"/>
+            <TextBox Text="{Binding Host, Mode=TwoWay}" PlaceholderText="Host" />
+            <TextBox Text="{Binding Key, Mode=TwoWay}" PlaceholderText="Key" />
+            <Button Content="SET" HorizontalAlignment="Stretch" Margin="0,10,0,0" Command="{Binding SetConnectionsCommand}"/>
         </StackPanel>
 
     </Grid>

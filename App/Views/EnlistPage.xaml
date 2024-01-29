@@ -82,6 +82,26 @@
             KeyUp="SearchEnrolled_KeyUp"
             VerticalAlignment="Bottom"
             CharacterCasing="Upper"/>
+        <Button Content="PRINT"
+            Grid.Row="2"
+            Margin="370,8,0,0"
+            Width="100"
+            VerticalAlignment="Top"
+                IsEnabled="False"
+            Command="{Binding PrintCommand}"/>
+        <Button Content="PDF"
+            Grid.Row="2"
+            Margin="480,8,0,0"
+            Width="100"
+            VerticalAlignment="Top"
+                IsEnabled="False"
+            Command="{Binding PDFCommand}"/>
+        <Button Content="RELOAD"
+            Grid.Row="2"
+            Margin="590,8,0,0"
+            Width="100"
+            VerticalAlignment="Top"
+            Command="{Binding LoadEnrolledCommand}"/>
         <TextBlock Grid.Row="2" Text="ENROLLED" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <controls:DataGrid Grid.Row="3"
                    x:Name="AllEnrolledLists"
@@ -91,9 +111,10 @@
                    AutoGenerateColumns="False"
                    GridLinesVisibility="Horizontal"
                    SelectionMode="Extended"
-                    LoadingRow="DataGrid_LoadingRow"
-                    HeadersVisibility="All"
-                   ItemsSource="{Binding Enrolled}">
+                   LoadingRow="DataGrid_LoadingRow"
+                   HeadersVisibility="All"
+                   ItemsSource="{Binding Enrolled}"
+                   SelectedItem="{Binding SelectedEnrolled, Mode=TwoWay}">
             <controls:DataGrid.Resources>
                 <SolidColorBrush x:Key="DataGridColumnHeaderBackgroundColor" Color="Transparent" />
             </controls:DataGrid.Resources>

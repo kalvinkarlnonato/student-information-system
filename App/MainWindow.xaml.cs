@@ -1,5 +1,6 @@
 using App.ViewModels;
 using App.Views;
+using Library.Helpers;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using WinUIEx;
@@ -10,41 +11,50 @@ public sealed partial class MainWindow : WindowEx
 {
     public MainViewModel ViewModel { get; private set; }
 
+    public Frame MainFrame { get; set; }
+
     public MainWindow()
     {
         this.InitializeComponent();
-
         ViewModel = App.GetService<MainViewModel>();
         ExtendsContentIntoTitleBar = true;
         AppWindow.SetIcon(Path.Combine(AppContext.BaseDirectory, ViewModel.AppIcon));
         Title = ViewModel.TitlePage;
         SetTitleBar(AppTitleBar);
+        MainFrame = AppContentFrame;
     }
 
-    private void AppNavigation_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
+    private async void AppNavigation_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
     {
+        if(string.IsNullOrEmpty(UserHelpers.ProccessBy))
+        {
+            ContentDialog dialog = new ContentDialog() { Title = "Signin", Content = "Please signin your name first.", CloseButtonText = "OK", XamlRoot = sender.XamlRoot };
+            await dialog.ShowAsync();
+            return;
+        }
+
         if (args.IsSettingsSelected)
         {
-            AppContentFrame.Navigate(typeof(SettingPage));
+            MainFrame.Navigate(typeof(SettingPage));
         }
         else
         {
             NavigationViewItem? item = args.SelectedItem as NavigationViewItem;
             if (item!.Tag.ToString() == "HomePage")
             {
-                AppContentFrame.Navigate(typeof(HomePage));
+                MainFrame.Navigate(typeof(HomePage));
             }
             if (item!.Tag.ToString() == "StudentPage")
             {
-                AppContentFrame.Navigate(typeof(StudentPage));
+                MainFrame.Navigate(typeof(StudentPage));
             }
             if (item!.Tag.ToString() == "SubjectPage")
             {
-                AppContentFrame.Navigate(typeof(SubjectPage));
+                MainFrame.Navigate(typeof(SubjectPage));
             }
             if (item!.Tag.ToString() == "EnlistPage")
             {
-                AppContentFrame.Navigate(typeof(EnlistPage));
+                MainFrame.Navigate(typeof(EnlistPage));
             }
         }
     }
@@ -52,6 +62,6 @@ public sealed partial class MainWindow : WindowEx
     private void AppNavigation_Loaded(object sender, RoutedEventArgs e)
     {
         AppNavigation.SelectedItem=AppNavigation.MenuItems[0];
-        AppContentFrame.Navigate(typeof(HomePage));
+        MainFrame.Navigate(typeof(HomePage));
     }
 }

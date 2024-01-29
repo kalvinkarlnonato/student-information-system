@@ -22,25 +22,27 @@ public sealed partial class EnlistPage : Page
 
     private async void Enlist_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
     {
-        if(AllStudentLists.SelectedItems.Count == 0) return;
-        var exist = ViewModel.Enrolled.Any(x => x.ID == ViewModel.SelectedStudent.ID);
-        if(exist)
+        if (AllStudentLists.SelectedItems.Count == 0) return;
+        var exist = ViewModel.Enrolled.Any(x => x.ID == ViewModel.SelectedStudent!.ID);
+        if (exist)
         {
-            ContentDialog dialog = new ContentDialog() { Title = "Oooops!", Content = "This student already exist.\nDo you want to continue?", PrimaryButtonText ="Yes", SecondaryButtonText = "Cancel", XamlRoot = XamlRoot };
+            ContentDialog dialog = new ContentDialog() { Title = "Oooops!", Content = "This student already exist.\nDo you want to continue?\nPrevious record will be removed instead.", PrimaryButtonText = "Yes", SecondaryButtonText = "Cancel", XamlRoot = this.XamlRoot };
             ContentDialogResult x = await dialog.ShowAsync();
-            if(x == ContentDialogResult.Secondary)
+            if (x == ContentDialogResult.Secondary)
             {
                 return;
             }
         }
-        var myPage = new ShowEnlistPage();
+        var myPage = App.GetService<ShowEnlistPage>();
         var myDialog = new ContentDialog()
         {
-            XamlRoot = XamlRoot,
+            XamlRoot = this.XamlRoot,
             Content = myPage
         };
         myPage.contentDialog = myDialog;
+        ViewModel.LoadStudentSubjects();
         await myDialog.ShowAsync();
+        if (myPage.CloseStatus == 200) await ViewModel.Save();
         ViewModel.LoadEnrolled();
     }
 

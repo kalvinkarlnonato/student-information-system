@@ -27,6 +27,7 @@ namespace App.ViewModels
             else greet = "Good night";
             Title = greet;
             Description = "Welcome to student management system. Please rate my work on my page and i am open for suggestions.";
+            UserFullName = string.Empty;
         }
 
         [RelayCommand(IncludeCancelCommand = true)]

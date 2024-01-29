@@ -26,14 +26,14 @@
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="0">
                 <TextBlock Text="Student:"/>
-                <TextBlock Text="{Binding Student.Person.FullName}"/>
+                <TextBlock Text="{Binding SelectedStudent.Person.FullName}"/>
             </StackPanel>
             <StackPanel Grid.Column="1">
                 <TextBlock Text="Course:"/>
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="{Binding Student.Program}"/>
+                    <TextBlock Text="{Binding SelectedStudent.Program}"/>
                     <TextBlock Text="-"/>
-                    <TextBlock Text="{Binding Student.YearLevel}"/>
+                    <TextBlock Text="{Binding SelectedStudent.YearLevel}"/>
                 </StackPanel>
             </StackPanel>
         </Grid>
@@ -41,17 +41,25 @@
             <ListView HorizontalAlignment="Stretch" ItemsSource="{Binding StudentSubjects}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel>
-                            <TextBlock Text="{Binding Code}" FontSize="12"/>
-                            <TextBlock Text="{Binding Description}" FontSize="15"/>
-                        </StackPanel>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Text="{Binding Code}" FontSize="12"/>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                <TextBlock Text="{Binding Units}" FontSize="12" HorizontalTextAlignment="Right"/>
+                                <TextBlock Text=" UNITS" FontSize="12" HorizontalTextAlignment="Right"/>
+                            </StackPanel>
+                            <TextBlock Grid.Row="1" Text="{Binding Description}" FontSize="15"/>
+                        </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
         </StackPanel>
-        <Button Grid.Row="3" Width="80" Margin="10" HorizontalAlignment="Right" Content="PRINT" Command="{Binding PrintCommand}" Click="Cancel_Click" />
-        <Button Grid.Row="3" Width="80" Margin="10,10,94,10" HorizontalAlignment="Right" Content="PDF" Command="{Binding ToPdfCommand}" Click="Cancel_Click" />
-        <Button Grid.Row="3" Width="80" Margin="10,10,178,10" HorizontalAlignment="Right" Content="SAVE" Command="{Binding SaveOnlyCommand}" Click="Cancel_Click" />
+        <Button Grid.Row="3" Width="80" Margin="10" HorizontalAlignment="Right" Content="SAVE" Command="{Binding SaveOnlyCommand}" Click="Save_Click" />
+        <Button Grid.Row="3" Width="80" Margin="10,10,94,10" HorizontalAlignment="Right" Content="REMOVE" IsEnabled="False"/>
+        <Button Grid.Row="3" Width="80" Margin="10,10,178,10" HorizontalAlignment="Right" Content="ADD" IsEnabled="False"/>
         <Button Grid.Row="3" Width="80" Margin="10" HorizontalAlignment="Left" Content="CANCEL" Click="Cancel_Click"/>
     </Grid>
 </Page>
