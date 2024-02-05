@@ -9,7 +9,7 @@ namespace App;
 
 public sealed partial class MainWindow : WindowEx
 {
-    public MainViewModel ViewModel { get; private set; }
+    private MainViewModel ViewModel { get; }
 
     public Frame MainFrame { get; set; }
 
@@ -26,10 +26,11 @@ public sealed partial class MainWindow : WindowEx
 
     private async void AppNavigation_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
     {
-        if(string.IsNullOrEmpty(UserHelpers.ProccessBy))
+        if(string.IsNullOrEmpty(UserHelpers.ProccessBy) && AppNavigation.SelectedItem != AppNavigation.MenuItems[0])
         {
             ContentDialog dialog = new ContentDialog() { Title = "Signin", Content = "Please signin your name first.", CloseButtonText = "OK", XamlRoot = sender.XamlRoot };
             await dialog.ShowAsync();
+            AppNavigation.SelectedItem = AppNavigation.MenuItems[0];
             return;
         }
 

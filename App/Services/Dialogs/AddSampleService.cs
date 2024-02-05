@@ -13,16 +13,16 @@ public class AddSampleService : IAddSampleService
         //WindowEx dialog = App.GetService<AddSampleView>();
         //await dialog.ShowMessageDialogAsync("Content", "Title");
 
-        var myPage = App.GetService<AddSubjectView>();
-        var myDialog = new ContentDialog()
-        {
-            Content = myPage
-        };
-        myPage.contentDialog = myDialog;
-        await myDialog.ShowAsync();
+        //var myPage = App.GetService<AddSubjectView>();
+        //var myDialog = new ContentDialog()
+        //{
+        //    Content = myPage
+        //};
+        //myPage.contentDialog = myDialog;
+        //await myDialog.ShowAsync();
 
-        //Get the return result of SearchPage
-        var myPageResult = myPage.StudID;
+        ////Get the return result of SearchPage
+        //var myPageResult = myPage.StudID;
     }
 
 }

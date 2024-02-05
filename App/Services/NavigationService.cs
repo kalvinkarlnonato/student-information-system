@@ -14,9 +14,9 @@ public class NavigationService : INavigationService
 
     private static async Task InitializeAsync()
     {
-        License.LicenseKey = "IRONSUITE.DUMMY.BRAVO.GAME.GMAIL.COM.13354-509A285276-HHWWA5BPSASNMV-TNWOSYSQDUHK-62EXFNZUCU2P-GNYO6VGZBBOV-JYXEEXS2K5CU-MCCZHYSLVFIO-PI6Y2L-TZBVV5RDYVKLUA-DEPLOYMENT.TRIAL-QDPVDA.TRIAL.EXPIRES.23.FEB.2024";
-        ConnectionStringHelpers.host = "197.168.1.77";
-        ConnectionStringHelpers.username = "root";
+        //License.LicenseKey = "IRONSUITE.DUMMY.BRAVO.GAME.GMAIL.COM.13354-509A285276-HHWWA5BPSASNMV-TNWOSYSQDUHK-62EXFNZUCU2P-GNYO6VGZBBOV-JYXEEXS2K5CU-MCCZHYSLVFIO-PI6Y2L-TZBVV5RDYVKLUA-DEPLOYMENT.TRIAL-QDPVDA.TRIAL.EXPIRES.23.FEB.2024";
+        ConnectionStringHelpers.host = "localhost";
+        ConnectionStringHelpers.username = "vin";
         ConnectionStringHelpers.password = "Dikoalam";
         ConnectionStringHelpers.database = "csusolana";
         await Task.CompletedTask;

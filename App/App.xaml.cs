@@ -62,6 +62,7 @@ public partial class App : Application
                 services.AddSingleton<MainWindow>();
 
                 services.AddTransient<ShowEnlistViewModel>();
+                services.AddTransient<ShowEnlistAddingPage>();
                 services.AddTransient<ShowEnlistPage>();
 
                 //ViewModels

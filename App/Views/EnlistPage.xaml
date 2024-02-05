@@ -8,7 +8,6 @@
     xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -17,17 +16,19 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <Button Content="ENLIST"
-            Margin="30,2,0,0"
+            Margin="30,2,0,40"
             Width="100"
             VerticalAlignment="Top"
             Click="Enlist_Click"/>
         <Button Content="IRREGULAR"
             Margin="145,2,0,0"
             Width="100"
+                IsEnabled="False"
             VerticalAlignment="Top"/>
         <Button Content="DROPPING"
             Margin="260,2,0,0"
             Width="100"
+                IsEnabled="False"
             VerticalAlignment="Top"/>
         <TextBox PlaceholderText="SEARCH"
             Margin="30,0,0,0"
@@ -37,7 +38,6 @@
             VerticalAlignment="Bottom"
             CharacterCasing="Upper"
             KeyUp="Search_KeyUp"/>
-        <TextBlock Text="ENLIST PAGE" FontSize="50" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <controls:DataGrid Grid.Row="1"
                         x:Name="AllStudentLists"
                         IsReadOnly="True"
@@ -87,14 +87,12 @@
             Margin="370,8,0,0"
             Width="100"
             VerticalAlignment="Top"
-                IsEnabled="False"
             Command="{Binding PrintCommand}"/>
         <Button Content="PDF"
             Grid.Row="2"
             Margin="480,8,0,0"
             Width="100"
             VerticalAlignment="Top"
-                IsEnabled="False"
             Command="{Binding PDFCommand}"/>
         <Button Content="RELOAD"
             Grid.Row="2"
@@ -102,7 +100,6 @@
             Width="100"
             VerticalAlignment="Top"
             Command="{Binding LoadEnrolledCommand}"/>
-        <TextBlock Grid.Row="2" Text="ENROLLED" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <controls:DataGrid Grid.Row="3"
                    x:Name="AllEnrolledLists"
                    IsReadOnly="True"
