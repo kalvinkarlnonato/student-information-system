@@ -30,7 +30,7 @@
                 VerticalAlignment="Center"
                 TextWrapping="NoWrap"
                 Margin="28,2,0,0"
-                Text="Student Information System"/>
+                Text="{x:Bind ViewModel.TitlePage}"/>
         </Grid>
         <NavigationView x:Name="AppNavigation"
                         PaneDisplayMode="Top"

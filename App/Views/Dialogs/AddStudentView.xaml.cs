@@ -51,11 +51,6 @@ namespace App.Views.Dialogs
             e.Handled = TrappingServices.StudentIDTrapping(sender, e);
         }
 
-        private void Save_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
-        {
-
-        }
-
         private void Page_Loaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
         {
             studID.Focus(FocusState.Programmatic);

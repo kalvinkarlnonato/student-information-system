@@ -23,27 +23,32 @@ public sealed partial class EnlistPage : Page
     private async void Enlist_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
     {
         if (AllStudentLists.SelectedItems.Count == 0) return;
+        ViewModel.isDuplicate = false;
         var exist = ViewModel.Enrolled.Any(x => x.ID == ViewModel.SelectedStudent!.ID);
         if (exist)
         {
             ContentDialog dialog = new ContentDialog() { Title = "Oooops!", Content = "This student already exist.\nDo you want to continue?\nPrevious record will be removed instead.", PrimaryButtonText = "Yes", SecondaryButtonText = "Cancel", XamlRoot = this.XamlRoot };
             ContentDialogResult x = await dialog.ShowAsync();
             if (x == ContentDialogResult.Secondary)
-            {
                 return;
-            }
+            ViewModel.isDuplicate = true;
         }
+
         var myPage = App.GetService<ShowEnlistPage>();
         var myDialog = new ContentDialog()
         {
             XamlRoot = this.XamlRoot,
             Content = myPage
         };
+        ViewModel.SelectedCurriculumn = 0;
+        ViewModel.LoadStudentSubjects(0);
         myPage.contentDialog = myDialog;
-        ViewModel.LoadStudentSubjects();
         await myDialog.ShowAsync();
-        if (myPage.CloseStatus == 200) await ViewModel.Save();
-        ViewModel.LoadEnrolled();
+        if (myPage.CloseStatus == 200)
+        {
+            await ViewModel.Save();
+            await ViewModel.LoadEnrolled();
+        }
     }
 
     private void Search_KeyUp(object sender, Microsoft.UI.Xaml.Input.KeyRoutedEventArgs e)

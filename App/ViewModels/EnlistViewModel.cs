@@ -1,6 +1,7 @@
 ﻿using App.Contracts;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using IronPdf;
 using Library.Contracts;
 using Library.Helpers;
 using Library.Models;
@@ -11,6 +12,7 @@ namespace App.ViewModels;
 
 public partial class EnlistViewModel : ObservableObject
 {
+	public bool isDuplicate = false;
 	private readonly IDatabaseService<SettingModel> SettingDatabaseService;
 	private readonly IDatabaseService<StudentModel> StudentDatabaseService;
 	private readonly IDatabaseService<PersonModel> PersonDatabaseService;
@@ -32,8 +34,26 @@ public partial class EnlistViewModel : ObservableObject
 	private SettingModel Settings;
 
 	[ObservableProperty]
-	private StudentModel selectedStudent;
+	private List<int> curriculumn;
 
+	[ObservableProperty]
+	private int selectedCurriculumn;
+    partial void OnSelectedCurriculumnChanged(int value)
+    {
+		LoadStudentSubjects(value);
+    }
+
+	[ObservableProperty]
+	private SubjectModel addingSelectedSubject;
+
+    [ObservableProperty]
+	private int subUnits;
+
+	[ObservableProperty]
+	private int subjectUnits;
+
+    [ObservableProperty]
+	private StudentModel selectedStudent;
 
 	[ObservableProperty]
 	private StudentModel selectedEnrolled;
@@ -45,10 +65,9 @@ public partial class EnlistViewModel : ObservableObject
 							IDatabaseService<SubjectModel> subjectDatabaseService,
 							IDatabaseService<SettingModel> settingDatabaseService,
 							IDatabaseService<StudentSubjectModel> studentSubjectDatabaseService,
-							IPrintingService printingService
-		)
+							IPrintingService printingService )
 	{
-		SubjectDatabaseService = subjectDatabaseService;
+        SubjectDatabaseService = subjectDatabaseService;
 		StudentDatabaseService = studentDatabaseService;
 		StudentFeeDatabaseService = studentFeeDatabaseService;
 		SettingDatabaseService = settingDatabaseService;
@@ -65,18 +84,40 @@ public partial class EnlistViewModel : ObservableObject
 		LoadEnrolled();
 	}
 
-	public void LoadStudentSubjects()
+	public void LoadStudentSubjects(int cur)
 	{
-		fees = new FeesModel();
-		StudentSubjects.Clear();
-		var subs = Subjects.Where(x => (x.Program == SelectedStudent.Program) && (x.Year == SelectedStudent.YearLevel) && (x.Sem == Settings.Sem)).ToList();
-		foreach (var subj in subs)
+		SubjectUnits = 0;
+        fees = new FeesModel();
+        if (SelectedStudent != null)
+        {
+            fees.Athletic = 140;
+            fees.Cultural = 60;
+            fees.Development = 130;
+            fees.Admission = 160;
+            fees.Guidance = 60;
+            fees.HandBook = 60;
+            fees.Library = 200;
+            fees.MedicalDental = 120;
+            fees.SchoolID = 160;
+            if (SelectedStudent.YearLevel == 1)
+            {
+                fees.NSTP = 160;
+                fees.Registration = 110;
+            }
+        }
+        StudentSubjects.Clear();
+		int curYear = cur == 0 ? (SelectedStudent!.Program == "BSIT") || (SelectedStudent.Program == "BSAGRI") ? 2022 : 2023 : cur;
+		var subs = Subjects.Where(x => (x.Program == SelectedStudent!.Program) && (x.Year == SelectedStudent.YearLevel) && (x.Sem == Settings.Sem)).ToList();
+		Curriculumn = subs.Select(o => o.Version).Distinct().ToList();
+		foreach (var subj in subs.Where(a=>a.Version==curYear))
 		{
 			StudentSubjects.Add(subj);
 			if (subj.IsLab) fees.Laboratory += 60;
 			if (subj.IsCom) fees.Computer += 360;
 			if (!subj.Code!.Contains("NSTP")) fees.Tuition += (subj.Units * 110);
-		}
+			SubjectUnits += subj.Units;
+
+        }
 	}
 
 	public async void LoadSettings()
@@ -90,8 +131,8 @@ public partial class EnlistViewModel : ObservableObject
 	{
 		Enrolled.Clear();
 		var _studentfees = await StudentFeeDatabaseService.Get();
-        var sudentFees = new List<StudentFeeModel>();
-		foreach (var studentfee in _studentfees) sudentFees.Add(studentfee);
+        var sdtFees = new List<StudentFeeModel>();
+		foreach (var studentfee in _studentfees) sdtFees.Add(studentfee);
         var studentSubs = await StudentSubjectDatabaseService.Get();
 		var studentSubjeks = new List<StudentSubjectModel>();
 		foreach(var stds in studentSubs)
@@ -99,10 +140,10 @@ public partial class EnlistViewModel : ObservableObject
 			stds.Subject = Subjects.Where(s => s.ID == stds.SubjectID).FirstOrDefault() ?? new();
 			studentSubjeks.Add(stds);
 		}
-		var enrolledStuds = Students.Where(y => sudentFees.Select(x => x.StudentID).Contains(y.ID)).ToList();
+		var enrolledStuds = Students.Where(y => sdtFees.Select(x => x.StudentID).Contains(y.ID)).ToList();
 		foreach (var en in enrolledStuds)
 		{
-			en.StudentFee = sudentFees.Where(x => x.StudentID == en.ID).FirstOrDefault() ?? new();
+			en.StudentFee = sdtFees.Where(x => x.StudentID == en.ID).FirstOrDefault() ?? new();
 			en.Subjects = studentSubjeks.Where(x => (x.StudentID == en.ID && x.Sem==Settings.Sem && x.AcadYearID==Settings.SY)).ToList();
 			Enrolled.Add(en);
 		}
@@ -130,7 +171,29 @@ public partial class EnlistViewModel : ObservableObject
 			Students.Add(student);
 		}
 	}
-	
+
+	[RelayCommand]
+	private void AddingSubject()
+	{
+		if(AddingSelectedSubject is not null)
+		{
+			SubjectUnits += AddingSelectedSubject.Units;
+			StudentSubjects.Add(AddingSelectedSubject);
+            AddingSelectedSubject = null;
+        }
+	}
+
+	[RelayCommand]
+	private void DroppingSubject()
+    {
+        if (AddingSelectedSubject is not null)
+        {
+            SubjectUnits -= AddingSelectedSubject.Units;
+            StudentSubjects.Remove(AddingSelectedSubject);
+            AddingSelectedSubject = null;
+        }
+    }
+
 	[RelayCommand]
 	private async Task PDF()
 	{
@@ -142,8 +205,10 @@ public partial class EnlistViewModel : ObservableObject
 	}
 
 	[RelayCommand]
-	private async Task Print()
+    private async Task Print()
 	{
+		if (SelectedEnrolled is null) return;
+		
         var htmlPdf = await SetupDoc();
         using (var pdf = await renderer.RenderHtmlAsPdfAsync(htmlPdf))
         {
@@ -153,6 +218,12 @@ public partial class EnlistViewModel : ObservableObject
 
     public async Task Save()
     {
+		if (isDuplicate)
+		{
+            await StudentFeeDatabaseService.Delete(SelectedStudent.ID);
+            await StudentSubjectDatabaseService.Delete(SelectedStudent.ID);
+        }
+
 		StudentFeeModel FeeForSubject = await StudentFeeDatabaseService.Create(new StudentFeeModel()
 		{
 			StudentID = SelectedStudent.ID,
@@ -170,6 +241,8 @@ public partial class EnlistViewModel : ObservableObject
 				AcadYearID = Settings.SY
 			});
 		}
+
+		await Task.CompletedTask;
 	}
 
     private static readonly ChromePdfRenderOptions ChromePdfRenderOptions = new()
@@ -206,11 +279,16 @@ public partial class EnlistViewModel : ObservableObject
                 fees.Registration = 110;
             }
         }
-
-		renderer = new ChromePdfRenderer()
-		{
-			RenderingOptions = ChromePdfRenderOptions
-		};
+		renderer = new();
+		renderer.RenderingOptions.PaperSize = IronPdf.Rendering.PdfPaperSize.Custom;
+		renderer.RenderingOptions.CssMediaType = IronPdf.Rendering.PdfCssMediaType.Screen;
+		renderer.RenderingOptions.PrintHtmlBackgrounds = true;
+		renderer.RenderingOptions.EnableJavaScript = true;
+		renderer.RenderingOptions.MarginBottom = 5;
+		renderer.RenderingOptions.MarginRight = 5;
+		renderer.RenderingOptions.MarginLeft = 5;
+		renderer.RenderingOptions.MarginTop = 40;
+		renderer.RenderingOptions.Timeout = 60;
         renderer.RenderingOptions.SetCustomPaperSizeInInches(8.5f, 13f);
 
         renderer.RenderingOptions.HtmlHeader = new HtmlHeaderFooter()
@@ -278,7 +356,7 @@ public partial class EnlistViewModel : ObservableObject
                     ");
         //Subjects head
         myHtml.Append(@"
-		                <span>-------------------------------------------------------------------------------------------------SUBJECTS----------------------------------------------------------------------------------------------------</span>
+		                <span>-------------------------------------------------------------------------------------------SUBJECTS----------------------------------------------------------------------------------------------------</span>
                         <table width='759'>
 	                        <tbody>
 		                        <tr style='font-size: 9.0pt;'>
@@ -315,7 +393,7 @@ public partial class EnlistViewModel : ObservableObject
         ");
         //Fees breakdown
         myHtml.Append(@"
-                    <br/><span>-------------------------------------------------------------------------------------------<strong>FEES BREAKDOWN</strong>----------------------------------------------------------------------------------------------</span>
+                    <br/><span>------------------------------------------------------------------------------------<strong>FEES BREAKDOWN</strong>----------------------------------------------------------------------------------------------</span>
                     <table>
 				    <tbody>
 				    <tr>
@@ -406,7 +484,7 @@ public partial class EnlistViewModel : ObservableObject
 				</table>");
         myHtml.Append(@"
                 <br/>
-				<span>--------------------------------------------------------------------------------------------------<strong>DISCOUNT</strong>-----------------------------------------------------------------------------------------------------</span>
+				<span>-------------------------------------------------------------------------------------------<strong>DISCOUNT</strong>-----------------------------------------------------------------------------------------------------</span>
 				<table>
 					<tbody>
 					<tr>
@@ -445,7 +523,7 @@ public partial class EnlistViewModel : ObservableObject
 					</table>");
         myHtml.Append(@"
 					<br/>
-					<span>-----------------------------------------------------------------------------------------<span style=""font-size: small;"">ENROLLMENT DETAILS</span>-------------------------------------------------------------------------------------------</span>					
+					<span>----------------------------------------------------------------------------------<span style=""font-size: small;"">ENROLLMENT DETAILS</span>-------------------------------------------------------------------------------------------</span>					
 					<table>
 						<tbody>
 						<tr>

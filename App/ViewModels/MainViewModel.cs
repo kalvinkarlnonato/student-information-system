@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using System.Reflection;
 
 namespace App.ViewModels;
 
@@ -15,7 +16,7 @@ public partial class MainViewModel : ObservableObject
 
     public MainViewModel()
     {
-        TitlePage = "Student Information System";
+        TitlePage = $"Student Information System v{Assembly.GetExecutingAssembly().GetName().Version!}";
         appIcon = "Assets/AppIcon.ico";
     }
 
