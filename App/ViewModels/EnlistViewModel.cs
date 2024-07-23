@@ -47,6 +47,9 @@ public partial class EnlistViewModel : ObservableObject
 	private SubjectModel addingSelectedSubject;
 
     [ObservableProperty]
+    private SubjectModel droppingSelectedSubject;
+
+    [ObservableProperty]
 	private int subUnits;
 
 	[ObservableProperty]
@@ -57,6 +60,9 @@ public partial class EnlistViewModel : ObservableObject
 
 	[ObservableProperty]
 	private StudentModel selectedEnrolled;
+
+	[ObservableProperty]
+	private string mySection;
 
 	private ChromePdfRenderer renderer;
 
@@ -160,7 +166,8 @@ public partial class EnlistViewModel : ObservableObject
 		await Task.CompletedTask;
 	}
 
-	public async void LoadStudents()
+    [RelayCommand]
+    public async Task LoadStudents()
 	{
 		Students.Clear();
 		var students = await StudentDatabaseService.Get();
@@ -186,11 +193,11 @@ public partial class EnlistViewModel : ObservableObject
 	[RelayCommand]
 	private void DroppingSubject()
     {
-        if (AddingSelectedSubject is not null)
+        if (DroppingSelectedSubject is not null)
         {
-            SubjectUnits -= AddingSelectedSubject.Units;
-            StudentSubjects.Remove(AddingSelectedSubject);
-            AddingSelectedSubject = null;
+            SubjectUnits -= DroppingSelectedSubject.Units;
+            StudentSubjects.Remove(DroppingSelectedSubject);
+            DroppingSelectedSubject = null;
         }
     }
 
@@ -236,6 +243,7 @@ public partial class EnlistViewModel : ObservableObject
 			{
 				StudentID = SelectedStudent.ID,
 				SubjectID = sub.ID,
+				Section = MySection,
 				FeeID = FeeForSubject.ID,
 				Sem = Settings.Sem,
 				AcadYearID = Settings.SY
@@ -342,7 +350,7 @@ public partial class EnlistViewModel : ObservableObject
 			                        <td>Course:</td>
 			                        <td>" + SelectedEnrolled.Course + @"</td>
 			                        <td>Year and Sec</td>
-			                        <td>" + SelectedEnrolled.YearLevel + @"</td>
+			                        <td>" + SelectedEnrolled.YearLevel + SelectedEnrolled.Subjects[0].Section + @"</td>
 		                            </tr>
 		                            <tr>
 			                        <td>Curriculum</td>
@@ -534,7 +542,7 @@ public partial class EnlistViewModel : ObservableObject
 						<tr>
 							<td>Midterms</td>
 							<td><strong>Php. " + fees.PayPreMid.ToString("N2") + @"</strong></td>
-							<td>Time: " + DateTime.Now.ToString("HH:MM tt") + @"</td>
+							<td>Time: " + DateTime.Now.ToString("hh:mm tt") + @"</td>
 						</tr>
 						<tr>
 							<td>Finals</td>

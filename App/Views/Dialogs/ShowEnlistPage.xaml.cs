@@ -23,11 +23,21 @@ public sealed partial class ShowEnlistPage : Page
 
     private void Cancel_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
     {
+        if (AddingFrame.Content != null)
+        {
+            AddingFrame.Content = null;
+            SubjectsFrame.Visibility = Visibility.Visible;
+            CurriculumCombo.IsEnabled = true;
+            SectionTextBox.IsEnabled = true;
+            RemoveSubject.IsEnabled = true;
+            return;
+        }
         contentDialog!.Hide();
     }
 
     private void Save_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
     {
+        ViewModel.MySection = SectionTextBox.Text;
         CloseStatus = 200;
         contentDialog!.Hide();
     }
@@ -39,12 +49,15 @@ public sealed partial class ShowEnlistPage : Page
             AddingFrame.Navigate(typeof(ShowEnlistAddingPage));
             SubjectsFrame.Visibility = Visibility.Collapsed;
             CurriculumCombo.IsEnabled = false;
+            SectionTextBox.IsEnabled = false;
             RemoveSubject.IsEnabled = false;
         }
         else
         {
             AddingFrame.Content = null;
             SubjectsFrame.Visibility = Visibility.Visible;
+            CurriculumCombo.IsEnabled = true;
+            SectionTextBox.IsEnabled = true;
             RemoveSubject.IsEnabled = true;
         }
     }

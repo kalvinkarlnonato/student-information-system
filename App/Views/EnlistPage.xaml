@@ -15,7 +15,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Button Content="ENLIST"
+        <Button Content="ENROLL"
             Margin="30,2,0,40"
             Width="100"
             VerticalAlignment="Top"
@@ -30,6 +30,11 @@
             Width="100"
                 IsEnabled="False"
             VerticalAlignment="Top"/>
+        <Button Content="RELOAD"
+            Margin="370,2,0,0"
+            Width="100"
+            VerticalAlignment="Top"
+            Command="{Binding LoadStudentsCommand}"/>
         <TextBox PlaceholderText="SEARCH"
             Margin="30,0,0,0"
             Width="330"

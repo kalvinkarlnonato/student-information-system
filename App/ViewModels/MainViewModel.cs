@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using System.Reflection;
+using Windows.ApplicationModel;
 
 namespace App.ViewModels;
 
@@ -16,8 +17,8 @@ public partial class MainViewModel : ObservableObject
 
     public MainViewModel()
     {
-        TitlePage = $"Student Information System v{Assembly.GetExecutingAssembly().GetName().Version!}";
-        appIcon = "Assets/AppIcon.ico";
+        TitlePage = $"Student Information System v{Package.Current.Id.Version.Major}.{Package.Current.Id.Version.Minor}.{Package.Current.Id.Version.Build}.{Package.Current.Id.Version.Revision}";
+        appIcon = "Assets/icon.ico";
     }
 
 

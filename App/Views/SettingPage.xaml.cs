@@ -13,14 +13,4 @@ public sealed partial class SettingPage : Page
         this.InitializeComponent();
         ViewModel = App.GetService<SettingViewModel>();
     }
-
-    //protected override void OnNavigatedTo(NavigationEventArgs e)
-    //{
-    //    EdgeTransitionLocation? Edge;
-    //    if (e.NavigationMode == NavigationMode.Back)
-    //    {
-    //        Edge = EdgeTransitionLocation.Right;
-    //    }
-    //    base.OnNavigatedTo(e);
-    //}
 }

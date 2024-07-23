@@ -30,12 +30,16 @@
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <StackPanel Grid.Row="0" Grid.ColumnSpan="2">
+            <StackPanel Grid.Row="0" Grid.ColumnSpan="5" Orientation="Horizontal">
                 <TextBlock Text="Curriculum:"/>
                 <ComboBox x:Name="CurriculumCombo"
-                          HorizontalAlignment="Stretch"
+                          Width="130"
+                          Margin="0 -4 0 0"
                           ItemsSource="{Binding Curriculumn}"
                           SelectedValue="{Binding SelectedCurriculumn, Mode=TwoWay}"/>
+                <TextBlock Text="Section:" Margin="9 0 0 0"/>
+                <TextBox x:Name="SectionTextBox" Margin="0 -4 0 0" CharacterCasing="Upper"/>
+                <TextBlock Text="[SECTION ONLY] e.g. Z" Foreground="Red" Margin="5 0 0 0"/>
             </StackPanel>
             <StackPanel Grid.Row="1" Grid.ColumnSpan="2">
                 <TextBlock Text="Student:"/>
@@ -58,7 +62,7 @@
         <StackPanel Grid.Row="2" Margin="10" x:Name="SubjectsFrame">
             <ListView HorizontalAlignment="Stretch"
                       ItemsSource="{Binding StudentSubjects}"
-                      SelectedItem="{Binding AddingSelectedSubject, Mode=TwoWay}">
+                      SelectedItem="{Binding DroppingSelectedSubject, Mode=TwoWay}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <Grid>

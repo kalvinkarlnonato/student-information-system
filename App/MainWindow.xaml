@@ -43,7 +43,7 @@
                 <NavigationViewItem Icon="Home" Content="Dashboard" Tag="HomePage" />
                 <NavigationViewItem Icon="People" Content="Students" Tag="StudentPage" />
                 <NavigationViewItem Icon="Bookmarks" Content="Subjects" Tag="SubjectPage" />
-                <NavigationViewItem Icon="PostUpdate" Content="Enlist" Tag="EnlistPage" />
+                <NavigationViewItem Icon="PostUpdate" Content="Enrollment" Tag="EnlistPage" />
             </NavigationView.MenuItems>
             <Frame x:Name="AppContentFrame"/>
             <!--Content-->
