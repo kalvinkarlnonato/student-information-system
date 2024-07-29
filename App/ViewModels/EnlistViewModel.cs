@@ -530,7 +530,7 @@ public partial class EnlistViewModel : ObservableObject
 				</table>");
 
         myHtml.Append($@"
-			<span style='font-size: 12px;'>------------------------------------------------------------------------------------------------<strong>ENROLLMENT DETAILS</strong>------------------------------------------------------------------------------------------------</span>					
+			<span style='font-size: 12px;'>-----------------------------------------------------------------------------------------------<strong>ENROLLMENT DETAILS</strong>------------------------------------------------------------------------------------------------</span>					
 			<table style='margin: 0 0 50px 0;font-size: 12px;'>
 				<tbody>
 				<tr>
@@ -550,8 +550,10 @@ public partial class EnlistViewModel : ObservableObject
 				</tr>
 				</tbody>
 			</table>
-			<div style='font-family: ""Cambria Math"",serif; font-size: 12px; font-weight: bold;'>{Settings.Signatory}</div>
-			<div style='font-size: 10px; line-height: 107%; font-family: ""Aptos',sans-serif;"">{Settings.Position}</div>");
+			<center>
+				<div style='font-family: ""Cambria Math"",serif; font-size: 12px; font-weight: bold;'>{Settings.Signatory}</div>
+				<div style='font-size: 10px; line-height: 107%; font-family: ""Aptos',sans-serif;"">{Settings.Position}</div>
+			</center>");
         
 		await Task.CompletedTask;
 		
