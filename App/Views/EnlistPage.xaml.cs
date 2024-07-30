@@ -54,14 +54,14 @@ public sealed partial class EnlistPage : Page
     private void Search_KeyUp(object sender, Microsoft.UI.Xaml.Input.KeyRoutedEventArgs e)
     {
         TextBox searchBox = (TextBox)sender;
-        var filtered = ViewModel.Students.Where(std => (std.SID.Contains(searchBox.Text) || std.Person.FirstName.Contains(searchBox.Text) || std.Person.LastName.Contains(searchBox.Text)));
+        var filtered = ViewModel.Students.Where(std => ($"{std.SID} {std.Person.LastName}, {std.Person.FirstName}".Contains(searchBox.Text)));
         AllStudentLists.ItemsSource = filtered;
     }
 
     private void SearchEnrolled_KeyUp(object sender, Microsoft.UI.Xaml.Input.KeyRoutedEventArgs e)
     {
         TextBox searchBox = (TextBox)sender;
-        var filtered = ViewModel.Enrolled.Where(std => (std.SID.Contains(searchBox.Text) || std.Person.FirstName.Contains(searchBox.Text) || std.Person.LastName.Contains(searchBox.Text)));
+        var filtered = ViewModel.Students.Where(std => ($"{std.SID} {std.Person.LastName}, {std.Person.FirstName}".Contains(searchBox.Text)));
         AllEnrolledLists.ItemsSource = filtered;
     }
 }

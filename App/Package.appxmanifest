@@ -10,7 +10,7 @@
   <Identity
     Name="18dbf6c0-835e-44ed-9468-28dbed4f1b76"
     Publisher="CN=Nonato"
-    Version="1.0.1.3" />
+    Version="1.0.1.4" />
 
   <mp:PhoneIdentity PhoneProductId="18dbf6c0-835e-44ed-9468-28dbed4f1b76" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
